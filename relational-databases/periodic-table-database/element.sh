@@ -2,7 +2,7 @@
 PSQL="psql -X --username=freecodecamp --dbname=periodic_table --tuples-only -c"
 
 FORMAT_STRING() {
-  echo "$(echo $1 | sed -E 's/^ *| *\+$//g')"
+  echo "$(echo $1 | sed -E 's/^ *| *$//g')"
 }
 
 # Selector de elemento
@@ -28,7 +28,7 @@ else
   if [[ -z $CHECK_ELEMENT ]]; then
     echo "I could not find that element in the database."
   else
-    IFS='|' read -r ATOMIC_NUMBER NAME SYMBOL TYPE ATOMIC_MASS MELTING_POINT BOILING_POINT <<< $CHECK_ELEMENT+
+    IFS='|' read -r ATOMIC_NUMBER NAME SYMBOL TYPE ATOMIC_MASS MELTING_POINT BOILING_POINT <<< $CHECK_ELEMENT
     AVER= echo "The element with atomic number $(FORMAT_STRING $ATOMIC_NUMBER) is $(FORMAT_STRING $NAME) ($(FORMAT_STRING $SYMBOL)). It's a $(FORMAT_STRING $TYPE), with a mass of $(FORMAT_STRING $ATOMIC_MASS) amu. $(FORMAT_STRING $NAME) has a melting point of $(FORMAT_STRING $MELTING_POINT) celsius and a boiling point of $(FORMAT_STRING $BOILING_POINT) celsius."
   fi
 fi
